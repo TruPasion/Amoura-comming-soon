@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.amoura.dev/sitemap.xml
+
+# Block access to admin areas (if any in future)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.env
+
+# Allow search engines to crawl images
+Allow: /src/assets/
+Allow: /public/
