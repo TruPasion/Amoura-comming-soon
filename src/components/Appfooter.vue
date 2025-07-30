@@ -13,7 +13,7 @@
               class="w-8 h-8"
             />
             <a 
-              href="https://amoura.dev" 
+              href="https://www.amoura.dev" 
               class="font-pacifico text-white text-2xl hover:text-yellow-400 transition-colors"
             >
               Amoura
@@ -82,10 +82,10 @@
             <div class="text-gray-300">
               <span class="block text-sm font-bold text-yellow-400 uppercase tracking-wider">Official Domain</span>
               <a 
-                href="https://amoura.dev" 
+                href="https://www.amoura.dev" 
                 class="text-white hover:text-yellow-400 transition-colors font-semibold text-lg"
               >
-                amoura.dev
+                www.amoura.dev
               </a>
             </div>
             <div class="mt-6">
@@ -106,7 +106,7 @@
       <!-- Bottom Section -->
       <div class="sm:flex sm:items-center sm:justify-between">
         <fwb-footer-copyright 
-          href="https://amoura.dev" 
+          href="https://www.amoura.dev" 
           by="Amoura - Launching Soon 🚀" 
           class="text-gray-400 font-medium"
         />

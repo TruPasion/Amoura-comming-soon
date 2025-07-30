@@ -2,7 +2,7 @@
   <fwb-navbar class="bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900">
     <template #logo>
       <a 
-        href="https://amoura.dev" 
+        href="https://www.amoura.dev" 
         class="flex items-center space-x-3 hover:opacity-80 transition-opacity"
       >
         <img 
