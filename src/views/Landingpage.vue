@@ -4,7 +4,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 
 import Navbar from "../components/Navbar.vue";
 import Appfooter from "../components/Appfooter.vue";
-// import { FwbButton } from "flowbite-vue";
+// import { F
 const isNavbarVisible = ref(true);
 let lastScroll = window.scrollY;
 const navbarHeight = ref(0);
@@ -28,7 +28,7 @@ const handleContactClick = () => {
 onMounted(() => {
   const el = document.getElementById("navbar");
   if (el) {
-    navbarHeight.value = el.offsetHeight;
+    navbarHeight.value = el.offsetHeight; // Revert navbar height adjustment
   }
 
   window.addEventListener("scroll", handleScroll);
@@ -51,7 +51,7 @@ onUnmounted(() => {
   </div>
 
   <div
-    :style="`padding-top: ${navbarHeight}px; height: calc(100vh - ${navbarHeight}px); background-image: url('/bg3.jpg');`"
+    :style="`padding-top: ${navbarHeight}px; height: 100vh; background-image: url('/bg3.jpg');`"
     class="bg-center bg-cover bg-no-repeat flex items-center justify-center relative overflow-hidden"
   >
     <!-- Overlay for better text readability -->
