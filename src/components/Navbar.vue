@@ -1,9 +1,17 @@
 <template>
   <fwb-navbar class="bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900">
     <template #logo>
-      <fwb-navbar-logo alt="Amoura logo" image-url="../../src/assets/favicon-32x32.png" link="https://amoura.dev">
+      <a 
+        href="https://amoura.dev" 
+        class="flex items-center space-x-3 hover:opacity-80 transition-opacity"
+      >
+        <img 
+          src="../../src/assets/favicon-32x32.png" 
+          alt="Amoura Logo" 
+          class="w-8 h-8"
+        />
         <span class="font-pacifico text-2xl text-white">Amoura</span>
-      </fwb-navbar-logo>
+      </a>
     </template>
     <template #default="{isShowMenu}">
       <fwb-navbar-collapse :is-show-menu="isShowMenu">
