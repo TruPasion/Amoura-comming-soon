@@ -1,10 +1,28 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-// import GoogleloginButton from "../components/Auth/GoogleloginButton.vue";
+import TermsContent from "../compliencepages/Terms.vue";
+import PrivacyContent from "../compliencepages/Privacy.vue";
+import RefundContent from "../compliencepages/Refund.vue";
+import ContactContent from "../compliencepages/Contact.vue";
+
+const handleNotifyClick = () => {
+  window.open(
+    "mailto:hello@amoura.dev?subject=Notify me when Amoura launches&body=Hi! I'm excited about Amoura and would love to be notified when you launch. Please add me to your early access list!",
+    "_blank"
+  );
+};
+
+const handleContactClick = () => {
+  window.open(
+    "mailto:hello@amoura.dev?subject=Early Access Request&body=Hi! I'm interested in early access to Amoura. Looking forward to hearing from you!",
+    "_blank"
+  );
+};
 
 import Navbar from "../components/Navbar.vue";
 import Appfooter from "../components/Appfooter.vue";
-// import { F
+import { useRouter } from "vue-router";
+// import { FwbButton } from "flowbite-vue";
 const isNavbarVisible = ref(true);
 let lastScroll = window.scrollY;
 const navbarHeight = ref(0);
@@ -17,13 +35,27 @@ const handleScroll = () => {
   lastScroll = currentScroll;
 };
 
-const handleNotifyClick = () => {
-  window.open('mailto:hello@amoura.dev?subject=Notify me when Amoura launches&body=Hi! I\'m excited about Amoura and would love to be notified when you launch. Please add me to your early access list!', '_blank');
+const router = useRouter();
+
+const handleFooterNavigate = (path: string) => {
+  // Navigate and scroll to top
+  router.push(path).then(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 };
 
-const handleContactClick = () => {
-  window.open('mailto:hello@amoura.dev?subject=Early Access Request&body=Hi! I\'m interested in early access to Amoura. Looking forward to hearing from you!', '_blank');
-};
+onMounted(() => {
+  const el = document.getElementById("navbar");
+  if (el) {
+    navbarHeight.value = el.offsetHeight;
+  }
+
+  window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
 
 onMounted(() => {
   const el = document.getElementById("navbar");
@@ -51,13 +83,19 @@ onUnmounted(() => {
   </div>
 
   <div
-    :style="`padding-top: ${navbarHeight}px; height: 100vh; background-image: url('/bg3.jpg');`"
+    :style="`padding-top: ${
+      navbarHeight - 25
+    }px; height: 100vh; background-image: url('/bg3.jpg');`"
     class="bg-center bg-cover bg-no-repeat flex items-center justify-center relative overflow-hidden"
   >
     <!-- Overlay for better text readability -->
     <div class="absolute inset-0 bg-black bg-opacity-30"></div>
-    
-    <div class="px-6 text-center relative z-10 w-full h-full flex flex-col justify-between py-8">
+
+    <!-- Home Page Content -->
+    <div
+      v-if="$route.path === '/'"
+      class="px-6 text-center relative z-10 w-full h-full flex flex-col py-8"
+    >
       <!-- Main Heading - Top -->
       <div>
         <div>
@@ -73,32 +111,34 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
-      
+
       <!-- Coming Soon - Middle -->
       <div class="flex-1 flex items-center justify-center">
-        <div class="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl animate-pulse tracking-wider">
+        <div
+          class="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl animate-pulse tracking-wider"
+        >
           COMING SOON
         </div>
       </div>
-      
+
       <!-- Bottom Section - Notify button and contact -->
       <div>
         <div class="space-y-4">
           <!-- Notify Me Button -->
           <div>
-            <button 
+            <button
               @click="handleNotifyClick"
               class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-full text-base sm:text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg"
             >
               ✨ Notify me when we launch
             </button>
           </div>
-          
+
           <!-- Email for early access -->
           <div class="text-white text-sm sm:text-base">
-            Want early access? Contact us at 
-            <a 
-              href="mailto:hello@amoura.dev" 
+            Want early access? Contact us at
+            <a
+              href="mailto:hello@amoura.dev"
               @click="handleContactClick"
               class="text-yellow-400 hover:text-yellow-300 underline font-bold transition-colors duration-200"
             >
@@ -108,9 +148,40 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
+
+    <!-- Terms and Conditions Content -->
+    <TermsContent v-else-if="$route.path === '/terms'" />
+
+    <!-- Privacy Policy Content -->
+    <PrivacyContent v-else-if="$route.path === '/privacy'" />
+
+    <!-- Refund Policy Content -->
+    <RefundContent v-else-if="$route.path === '/refund'" />
+
+    <!-- Contact Content -->
+    <ContactContent v-else-if="$route.path === '/userguide'" />
+
+    <!-- Default fallback for other routes -->
+    <div
+      v-else
+      class="px-6 text-center relative z-10 w-full h-full flex flex-col justify-center items-center py-8"
+    >
+      <div class="bg-white bg-opacity-90 rounded-lg p-8 shadow-lg">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Page Not Found</h1>
+        <p class="text-gray-700 mb-6">
+          The page you're looking for doesn't exist.
+        </p>
+        <router-link
+          to="/"
+          class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-lg transition-colors"
+        >
+          Go Home
+        </router-link>
+      </div>
+    </div>
   </div>
 
   <div>
-    <Appfooter />
+    <Appfooter @navigate="handleFooterNavigate" />
   </div>
 </template>
